@@ -1,16 +1,25 @@
-import React from 'react';
+import { Config, DAppProvider, Mainnet } from '@usedapp/core';
+import { getDefaultProvider } from 'ethers';
+import * as React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
+
+const config: Config = {
+  readOnlyChainId: Mainnet.chainId,
+  readOnlyUrls: {
+    [Mainnet.chainId]: getDefaultProvider('mainnet'),
+  },
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  <DAppProvider config={config}>
     <App />
-  </React.StrictMode>
+  </DAppProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
